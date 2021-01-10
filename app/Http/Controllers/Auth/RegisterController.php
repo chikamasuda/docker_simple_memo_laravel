@@ -42,4 +42,20 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
+
+    /**
+     * ユーザー登録後、投稿画面に遷移する
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function register(Request $request)
+    {
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' =>Hash::make($request->password),
+        ]);
+
+        return redirect()->route('memo.index');
+    }
 }
