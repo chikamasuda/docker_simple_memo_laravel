@@ -19,3 +19,6 @@ Route::get('/user', 'App\Http\Controllers\Auth\RegisterController@showRegistrati
 Route::get('/memo',function(){
     return view("memo");
 })->name('memo.index');
+
+Auth::routes();
+
