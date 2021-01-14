@@ -55,7 +55,7 @@ class MemoController extends Controller
   /**
    * メモの更新
    * @param Request $request
-   * @return  \Illumunate\Http\RedirectResponse
+   * @return  \Illuminate\Http\RedirectResponse
    */
   public function update(Request $request)
   {
@@ -92,4 +92,16 @@ class MemoController extends Controller
     return $name;
   }
 
+  /**
+   * メモの削除
+   * @param Request $request
+   * @return \Illuminate\Http\RedirectResponse
+   */
+  public function delete(Request $request)
+  {
+    Memo::find($request->edit_id)->delete();
+    session()->remove('select_memo');
+
+    return redirect()->route('memo.index');
+  }
 }
