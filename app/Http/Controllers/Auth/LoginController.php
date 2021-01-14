@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\Models\Memo;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -45,6 +47,19 @@ class LoginController extends Controller
       ]
     );
   }
+  /**
+   * ログイン後のメモ選択処理
+   * @param Request $request
+   * @param $user
+   */
+  protected function authenticated(Request $request,$user)
+  {
+    $memo = Memo::where('user_id', '=', Auth::id())->orderBy('updated_at', 'desc')->first();
+    if($memo) {
+      session()->put('select_memo', $memo);
+    }
+  }
+
 
   /**
    * Create a new controller instance.
